@@ -1,0 +1,7 @@
+WORK_PATH=$1
+INSTALL_PATH=$2
+RESULT=$3
+INT=$4
+FUNC_PATH=$5
+
+${INSTALL_PATH}/nta/bin/pcap_save.sh stop
