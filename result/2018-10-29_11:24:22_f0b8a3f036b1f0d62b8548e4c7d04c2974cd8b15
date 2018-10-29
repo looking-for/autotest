@@ -1,0 +1,8 @@
+
+########################################
+nta auto test
+	git remote: origin	https://github.com/HanSight-Dev/janus.git
+	git branch: * 4.0.5-merge
+	git commit version: f0b8a3f036b1f0d62b8548e4c7d04c2974cd8b15
+########################################
+

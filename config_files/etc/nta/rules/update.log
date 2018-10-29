@@ -1,0 +1,151 @@
+{
+  "hansight-dns.rules - DNS协议攻击": {
+    "count": 29
+  },
+  "hansight-policy.rules - 违规行为": {
+    "count": 727
+  },
+  "hansight-scam.rules - 未定义": {
+    "count": 5
+  },
+  "hansight-web_client.rules - 未定义": {
+    "count": 286
+  },
+  "hansight-lfi.rules - 本地文件包含": {
+    "count": 2
+  },
+  "hansight-ciarmy.rules - Poor Reputation IP Traffic": {
+    "count": 100
+  },
+  "hansight-rfi.rules - 远程文件包含": {
+    "count": 17
+  },
+  "hansight-p2p.rules - P2P流量": {
+    "count": 118
+  },
+  "hansight-netbios.rules - NETBIOS攻击": {
+    "count": 49
+  },
+  "hansight-scan.rules - 网络扫描": {
+    "count": 252
+  },
+  "hansight-pop3.rules - POP3协议攻击": {
+    "count": 20
+  },
+  "hansight-user_agents_suspicious.rules - 可疑UA": {
+    "count": 88
+  },
+  "hansight-exploit.rules - 漏洞利用": {
+    "count": 1130
+  },
+  "hansight-sql_injection.rules - SQL注入攻击": {
+    "count": 4187
+  },
+  "hansight-telnet.rules - TELNET协议攻击": {
+    "count": 13
+  },
+  "hansight-backdoor.rules - 后门连接": {
+    "count": 160
+  },
+  "hansight-shellcode.rules - 代码执行": {
+    "count": 185
+  },
+  "hansight-xss.rules - XSS攻击": {
+    "count": 413
+  },
+  "hansight-malware.rules - 间谍软件": {
+    "count": 1040
+  },
+  "hansight-botcc.rules - Botnet Traffic": {
+    "count": 336
+  },
+  "hansight-sql.rules - SQL协议攻击": {
+    "count": 311
+  },
+  "hansight-trojan.rules - 木马": {
+    "count": 5768
+  },
+  "hansight-drive_by_download.rules - 网站挂马": {
+    "count": 109
+  },
+  "hansight-dos.rules - 拒绝服务攻击": {
+    "count": 107
+  },
+  "hansight-login_success.rules - 登录成功": {
+    "count": 1
+  },
+  "hansight-tftp.rules - TFTP协议攻击": {
+    "count": 20
+  },
+  "hansight-smtp.rules - SMTP协议攻击": {
+    "count": 21
+  },
+  "hansight-current_events.rules - 未定义": {
+    "count": 1922
+  },
+  "hansight-lfi.rules - 本地文件包含攻击": {
+    "count": 263
+  },
+  "hansight-snmp.rules - SNMP协议攻击": {
+    "count": 33
+  },
+  "hansight-compromised.rules - Poor Reputation IP Traffic": {
+    "count": 42
+  },
+  "hansight-web.rules - WEB攻击": {
+    "count": 713
+  },
+  "hansight-rfi.rules - 远程文件包含攻击": {
+    "count": 348
+  },
+  "hansight-mobile_malware.rules - 手机间谍软件": {
+    "count": 205
+  },
+  "hansight-dns_replay.rules - DNS响应异常": {
+    "count": 9
+  },
+  "hansight-phishing.rules - 钓鱼攻击": {
+    "count": 325
+  },
+  "hansight-files.rules - 未定义": {
+    "count": 44,
+    "del": {
+      "count": 1,
+      "sid": [
+        "1: FILE store all"
+      ]
+    }
+  },
+  "hansight-drop.rules - Poor Reputation IP Traffic": {
+    "count": 33
+  },
+  "hansight-dns_query.rules - DNS请求异常": {
+    "count": 132
+  },
+  "hansight-rdp.rules - 远程桌面连接": {
+    "count": 1
+  },
+  "hansight-user_agents_malicious.rules - 恶意UA": {
+    "count": 19
+  },
+  "hansight-bruteforce.rules - 暴力破解": {
+    "count": 32
+  },
+  "hansight-dshield.rules - Poor Reputation IP Traffic": {
+    "count": 1
+  },
+  "hansight-ftp.rules - FTP攻击": {
+    "count": 116
+  },
+  "hansight-webshell.rules - WebShell": {
+    "count": 100
+  },
+  "hansight-tor.rules - Tor Exit Node Traffic": {
+    "count": 710
+  },
+  "hansight-worm.rules - 蠕虫": {
+    "count": 19
+  },
+  "Date": "2017-09-30 11:41:15",
+  "Total": 20561
+}

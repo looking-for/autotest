@@ -1,0 +1,7 @@
+./start.sh sudopwd enp1s0f1 [all/nta/....]
+
+# the nta default set desc:
+# Mirrored NIC name is :  enp1s0f0
+# Enterpriser IP is :  127.0.0.1
+# NTA store dirctory is :  /tmp/nta
+

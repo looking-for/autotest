@@ -1,0 +1,2 @@
+alert tcp $HOME_NET 21 -> $EXTERNAL_NET any (msg:"LOGIN_SUCCESS FTP"; flow:from_server,established; dsize:<100; content:"230 "; pcre:"/230\s+(Login successful)/smi"; classtype:successful-user; sid:3090001; rev:1; metadata:affected_product Ftp_Server_Applications, attack_target Ftp_Server, deployment Datacenter, tag Login_Success, created_at 2017_07_09, updated_at 2017_07_09;)
+
