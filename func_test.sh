@@ -179,7 +179,7 @@ _test_list()
 		## global config
 		global_config=${WORK_PATH}/config.sh
 		if [ -f ${global_config} ] ; then
-			${global_config} ${WORK_PATH} ${INSTALL_PATH} ${RESULT} ${SUDO_PWD}
+			echo "$SUDO_PWD" | sudo -S ${global_config} ${WORK_PATH} ${INSTALL_PATH} ${RESULT}
 			sleep 30
 		fi
 
