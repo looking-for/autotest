@@ -1,5 +1,5 @@
 config=config_1.sh
-pcap=pcap_1.pcap
+pcap=
 json=  
 check=check_1.sh
 post=post_1.sh
