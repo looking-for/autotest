@@ -103,7 +103,7 @@ function traffic_monitor {
 
 mkdir -p /var/log/nta
 setup_supervisor
-traffic_monitor
+# traffic_monitor
 # read -p "Input Mirrored NIC name :" wNIC
 
 if [[ -n ${wNIC} ]]; then
