@@ -168,14 +168,14 @@ _test_list()
 		func_path=$1
 		list_file=$2
 		#name=`cat $list_file | grep name | cut -d '=' -f 2`
-		input=`cat ${list_file} | grep input | cut -d '=' -f 2 | cut -d ' ' -f 1`
-		config=`cat ${list_file} | grep config | cut -d '=' -f 2 | cut -d ' ' -f 1`
-		pcap=`cat ${list_file} | grep pcap | grep -v send | cut -d '=' -f 2 | cut -d ' ' -f 1`
-		pcap_send=`cat ${list_file} | grep pcap_send | cut -d '=' -f 2 | cut -d ' ' -f 1`
-		json=`cat ${list_file} | grep json | cut -d '=' -f 2 | cut -d ' ' -f 1`
-		check=`cat ${list_file} | grep check | grep -v post | cut -d '=' -f 2 | cut -d ' ' -f 1`
-		post_check=`cat ${list_file} | grep post_check | cut -d '=' -f 2 | cut -d ' ' -f 1`
-		post=`cat ${list_file} | grep post | cut -d '=' -f 2 | cut -d ' ' -f 1`
+		input=`cat ${list_file} | grep "input=" | cut -d '=' -f 2 | cut -d ' ' -f 1`
+		config=`cat ${list_file} | grep "config=" | cut -d '=' -f 2 | cut -d ' ' -f 1`
+		pcap=`cat ${list_file} | grep "pcap=" | grep -v send | cut -d '=' -f 2 | cut -d ' ' -f 1`
+		pcap_send=`cat ${list_file} | grep "pcap_send=" | cut -d '=' -f 2 | cut -d ' ' -f 1`
+		json=`cat ${list_file} | grep "json=" | cut -d '=' -f 2 | cut -d ' ' -f 1`
+		check=`cat ${list_file} | grep "check=" | grep -v post | cut -d '=' -f 2 | cut -d ' ' -f 1`
+		post_check=`cat ${list_file} | grep "post_check=" | cut -d '=' -f 2 | cut -d ' ' -f 1`
+		post=`cat ${list_file} | grep "post=" | cut -d '=' -f 2 | cut -d ' ' -f 1`
 
 		## global config
 		global_config=${WORK_PATH}/config.sh
