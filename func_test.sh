@@ -174,7 +174,8 @@ _test_list()
 		pcap=`cat ${list_file} | grep pcap | grep -v send | cut -d '=' -f 2 | cut -d ' ' -f 1`
 		pcap_send=`cat ${list_file} | grep pcap_send | cut -d '=' -f 2 | cut -d ' ' -f 1`
 		json=`cat ${list_file} | grep json | cut -d '=' -f 2 | cut -d ' ' -f 1`
-		check=`cat ${list_file} | grep check | cut -d '=' -f 2 | cut -d ' ' -f 1`
+		check=`cat ${list_file} | grep check | grep -v post | cut -d '=' -f 2 | cut -d ' ' -f 1`
+		post_check=`cat ${list_file} | grep post_check | cut -d '=' -f 2 | cut -d ' ' -f 1`
 		post=`cat ${list_file} | grep post | cut -d '=' -f 2 | cut -d ' ' -f 1`
 
 		## global config
@@ -223,7 +224,7 @@ _test_list()
 			echo -n "		   " >> $RESULT
 			echo "$SUDO_PWD" | sudo -S ${check_file}  ${WORK_PATH} ${INSTALL_PATH} ${RESULT} ${INT} ${func_path}
 			if [ "$?" != "0" ] ; then
-				echo "		   ${check_file} err" >> $RESULT
+				echo "		   ${check_file} fail" >> $RESULT
 				return 1
 			else
 				echo -n -e "\r" >> $RESULT
@@ -240,6 +241,22 @@ _test_list()
 			else
 				echo "		   pcap and json is not null, but json check file [${JSON_CHECK}] is not exist" >> $RESULT
 				return 1
+			fi
+		fi
+		## post check
+		if [ "$post_check" != "" ] ; then
+			post_check_file="${func_path}/post_check/${post_check}"
+			if [ ! -f "${post_check_file}" ] ; then
+				echo "		   post check is [${post_check}], but post check file [${post_check_file}] is not exist." >> $RESULT
+				return 1
+			fi
+			echo -n "		   " >> $RESULT
+			echo "$SUDO_PWD" | sudo -S ${post_check_file} ${WORK_PATH} ${INSTALL_PATH} ${RESULT} ${INT} ${func_path}
+			if [ "$?" != "0" ] ; then
+				echo "		   ${post_check_file} fail" >> $RESULT
+				return 1
+			else
+				echo -n -e "\r" >> $RESULT
 			fi
 		fi
 

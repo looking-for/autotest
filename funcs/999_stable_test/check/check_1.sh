@@ -6,8 +6,10 @@ FUNC_PATH=$5
 
 pid=`pgrep nta`
 if [ "$pid" == "" ] ; then
-	echo "got nta pid fail" >> $RESULT
+	echo "got pid fail" >> $RESULT
 	exit 1
+else
+	echo "${pid}" > ${FUNC_PATH}/tmp/tmp.info
 fi
 
 flag="pidstat -t -p `pgrep nta` | grep Hansight-nta-Ma"
@@ -103,7 +105,6 @@ if [ "$flag" == "" ] ; then
 	echo "got thread US fail" >> $RESULT
 	exit 1
 fi
-
 
 exit 0
 
