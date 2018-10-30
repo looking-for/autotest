@@ -28,5 +28,8 @@ INT=$4
 SUDO_PWD=$5
 JSON_CHECK=$6
 
+echo ##################################################################
+echo ${WORK_PATH}/func_test.sh ${WORK_PATH} ${INSTALL_PATH} ${RESULT} ${INT} ${SUDO_PWD} ${JSON_CHECK} ${FUNC}
+echo ##################################################################
 ${WORK_PATH}/func_test.sh ${WORK_PATH} ${INSTALL_PATH} ${RESULT} ${INT} ${SUDO_PWD} ${JSON_CHECK} ${FUNC}
 

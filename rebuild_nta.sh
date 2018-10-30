@@ -63,5 +63,7 @@ if [ "$?" != "0" ] ; then
 	exit 1
 fi
 
-
+echo ##################################################################
+echo ${WORK_PATH}/reinstall.sh ${WORK_PATH} ${INSTALL_PATH} ${RESULT} ${INT} ${SUDO_PWD} ${JSON_CHECK} ${FUNC} 
+echo ##################################################################
 ${WORK_PATH}/reinstall.sh ${WORK_PATH} ${INSTALL_PATH} ${RESULT} ${INT} ${SUDO_PWD} ${JSON_CHECK} ${FUNC} 

@@ -25,6 +25,9 @@ start()
 	FUNC=$3
 	JSON_CHECK=${WORK_PATH}/rust/check/target/debug/check
 
+	echo ##################################################################
+	echo ${WORK_PATH}/rebuild_nta.sh ${WORK_PATH} ${INSTALL_PATH} ${RESULT_DIR} ${INT} ${SUDO_PWD} ${JSON_CHECK} ${FUNC}
+	echo ##################################################################
 	${WORK_PATH}/rebuild_nta.sh ${WORK_PATH} ${INSTALL_PATH} ${RESULT_DIR} ${INT} ${SUDO_PWD} ${JSON_CHECK} ${FUNC}
 }
 
