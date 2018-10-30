@@ -1,2 +1,0 @@
-alert tcp $HOME_NET 3389 -> $EXTERNAL_NET any (msg:"RDP ACCESS connection confirm"; flow: from_server,established; content:"|03|"; offset: 0; depth: 1; content:"|D0|"; offset: 5; depth: 1; reference:url,doc.emergingthreats.net/2001330; classtype:misc-activity; sid:2001330; rev:8; metadata:created_at 2010_07_30, updated_at 2010_07_30;)
-
