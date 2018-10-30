@@ -232,7 +232,12 @@ _test_list()
 		## JSON_CHECK
 		if [ "$pcap" != "" ] ; then
 			if [ -f "$JSON_CHECK" ] ; then
-				echo "$SUDO_PWD" | sudo -S ${JSON_CHECK} -f ${pcap}  ${INT} 100 ${json} 
+				pcap_file="${func_path}/pcap/${pcap}"
+				if [ ! -f "${pcap_file}" ] ; then
+					echo "		   json_check send pcap file, but pcap file [${pcap_file}] is not exist." >> $RESULT
+					return 1
+				fi
+				echo "$SUDO_PWD" | sudo -S ${JSON_CHECK} -f ${pcap_file}  ${INT} 100 ${json} 
 				if [ "$?" != "0" ] ; then
 					echo "		   ${JSON_CHECK} pcap file fail" >> $RESULT
 					return 1
@@ -245,7 +250,12 @@ _test_list()
 
 		if [ "$pcap_send" != "" ] ; then
 			if [ -f "$JSON_CHECK" ] ; then
-				echo "$SUDO_PWD" | sudo -S ${JSON_CHECK} -s ${pcap_send}  ${json} 
+				send_file="${func_path}/pcap_send/${pcap_send}"
+				if [ ! -f "${send_file}" ] ; then
+					echo "		   json check exec send file, but send file [${send_file}] is not exist." >> $RESULT
+					return 1
+				fi
+				echo "$SUDO_PWD" | sudo -S ${JSON_CHECK} -s ${send_file} ${json} 
 				if [ "$?" != "0" ] ; then
 					echo "		   ${JSON_CHECK} send shell fail" >> $RESULT
 					return 1
