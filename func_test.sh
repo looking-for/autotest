@@ -243,6 +243,20 @@ _test_list()
 				return 1
 			fi
 		fi
+
+		if [ "$pcap_send" != "" ] ; then
+			if [ -f "$JSON_CHECK" ] ; then
+				echo "$SUDO_PWD" | sudo -S ${JSON_CHECK} -s ${pcap}  ${json} 
+				if [ "$?" != "0" ] ; then
+					echo "		   ${JSON_CHECK} send shell fail" >> $RESULT
+					return 1
+				fi
+			else
+				echo "		   pcap and json is not null, but json check file [${JSON_CHECK}] is not exist" >> $RESULT
+				return 1
+			fi
+		fi
+
 		## post check
 		if [ "$post_check" != "" ] ; then
 			post_check_file="${func_path}/post_check/${post_check}"
@@ -259,20 +273,7 @@ _test_list()
 				echo -n -e "\r" >> $RESULT
 			fi
 		fi
-
-		if [ "$pcap_send" != "" ] ; then
-			if [ -f "$JSON_CHECK" ] ; then
-				echo "$SUDO_PWD" | sudo -S ${JSON_CHECK} -s ${pcap}  ${json} 
-				if [ "$?" != "0" ] ; then
-					echo "		   ${JSON_CHECK} send shell fail" >> $RESULT
-					return 1
-				fi
-			else
-				echo "		   pcap and json is not null, but json check file [${JSON_CHECK}] is not exist" >> $RESULT
-				return 1
-			fi
-		fi
-
+		
 		## post
 		if [ "$post" != "" ] ; then
 			post_file="${func_path}/post/${post}"
