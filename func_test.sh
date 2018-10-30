@@ -44,7 +44,6 @@ do
 			break
 		done
 	else
-		echo no index
 		test_lists $func_path 0
 		if [ "$?" == "0" ] ; then
 			echo "	test ok" >> $RESULT
@@ -190,7 +189,7 @@ _test_list()
 		if [ "$input" != "" ] ; then
 			input_file="${func_path}/input/${input}"
 			if [ ! -f "${input_file}" ] ; then
-				echo "		   input is [${input}], but input file [${input_file}] is not exist." >>RESULT
+				echo "		   input is [${input}], but input file [${input_file}] is not exist." >>$RESULT
 				return 1
 			fi
 			echo "$SUDO_PWD" | sudo -S ${global_input} ${WORK_PATH} ${INSTALL_PATH} ${RESULT} ${input_file}
@@ -204,7 +203,7 @@ _test_list()
 		if [ "$config" != "" ] ; then
 			config_file="${func_path}/config/${config}"
 			if [ ! -f "${config_file}" ] ; then
-				echo "		   config is [${config}], but config file [${config_file}] is not exist." >>RESULT
+				echo "		   config is [${config}], but config file [${config_file}] is not exist." >>$RESULT
 				return 1
 			fi
 			echo "$SUDO_PWD" | sudo -S ${config_file} ${WORK_PATH} ${INSTALL_PATH} ${RESULT} ${INT} ${func_path}
@@ -218,7 +217,7 @@ _test_list()
 		if [ "$check" != "" ] ; then
 			check_file="${func_path}/check/${check}"
 			if [ ! -f "${check_file}" ] ; then
-				echo "		   check is [${check}], but check file [${check_file}] is not exist." >>RESULT
+				echo "		   check is [${check}], but check file [${check_file}] is not exist." >>$RESULT
 				return 1
 			fi
 			echo -n "		   " >> $RESULT
@@ -278,7 +277,7 @@ _test_list()
 		if [ "$post" != "" ] ; then
 			post_file="${func_path}/post/${post}"
 			if [ ! -f "${post_file}" ] ; then
-				echo "		   post is [${post}], but post file [${post_file}] is not exist." >>RESULT
+				echo "		   post is [${post}], but post file [${post_file}] is not exist." >>$RESULT
 				return 1
 			fi
 			echo "$SUDO_PWD" | sudo -S ${post_file}  ${WORK_PATH} ${INSTALL_PATH} ${RESULT} ${INT} ${func_path}
