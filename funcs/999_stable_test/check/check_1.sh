@@ -4,12 +4,16 @@ RESULT=$3
 INT=$4
 FUNC_PATH=$5
 
+# ###########################################
+# check nta
+# ###########################################
+# check nta and record pid
 pid=`pgrep nta`
 if [ "$pid" == "" ] ; then
 	echo "got pid fail" >> $RESULT
 	exit 1
 else
-	echo "${pid}" > ${FUNC_PATH}/tmp/tmp.info
+	echo "${pid}" > ${FUNC_PATH}/tmp/tmp1.info
 fi
 
 flag="pidstat -t -p `pgrep nta` | grep Hansight-nta-Ma"
@@ -106,5 +110,48 @@ if [ "$flag" == "" ] ; then
 	exit 1
 fi
 
+# ###########################################
+# check pcap_save
+# ###########################################
+# check pcap_save and record it pid
+pid=`pgrep pcap_save_file`
+if [ "$pid" == "" ] ; then
+	echo "got pcap_save_file pid fail" >> $RESULT
+	exit 1
+else
+	echo "${pid}" > ${FUNC_PATH}/tmp/tmp2.info
+fi
+g="pidstat -t -p `pgrep pcap_save_file` | grep pcap_capture"
+flag=`eval $flag`
+if [ "$flag" == "" ] ; then
+		echo "got thread pcap_capture fail" >> $RESULT
+		exit 1
+fi
+flag="pidstat -t -p `pgrep pcap_save_file` | grep pcap_storage"
+flag=`eval $flag`
+if [ "$flag" == "" ] ; then
+	echo "got thread pcap_storage fail" >> $RESULT
+	exit 1
+fi
+
+flag="pidstat -t -p `pgrep pcap_save_file` | grep pcap_delete"
+flag=`eval $flag`
+if [ "$flag" == "" ] ; then
+	echo "got thread pcap_delete fail" >> $RESULT
+	exit 1
+fi
+
+flag="pidstat -t -p `pgrep pcap_save_file` | grep pcap_save_file"
+flag=`eval $flag`
+if [ "$flag" == "" ] ; then
+	echo "got thread pcap_delete fail" >> $RESULT
+	exit 1
+fi
+flag="pidstat -t -p `pgrep pcap_save_file` | grep log4rs"
+flag=`eval $flag`
+if [ "$flag" == "" ] ; then
+	echo "got thread log4rs fail" >> $RESULT
+	exit 1
+fi
 exit 0
 

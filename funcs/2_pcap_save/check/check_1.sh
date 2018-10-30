@@ -30,6 +30,18 @@ if [ "$flag" == "" ] ; then
 	exit 1
 fi
 
+flag="pidstat -t -p `pgrep pcap_save_file` | grep pcap_save_file"
+flag=`eval $flag`
+if [ "$flag" == "" ] ; then
+	echo "got thread pcap_save_file fail" >> $RESULT
+	exit 1
+fi
 
+flag="pidstat -t -p `pgrep pcap_save_file` | grep log4rs"
+flag=`eval $flag`
+if [ "$flag" == "" ] ; then
+	echo "got thread log4rs fail" >> $RESULT
+	exit 1
+fi
 exit 0
 
