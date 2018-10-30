@@ -62,8 +62,8 @@ fn main() {
         }
 
         flag = 3;
-        pcap_send.push_str(&(args().nth(4).unwrap()));
-        json_file.push_str(&(args().nth(5).unwrap()));
+        pcap_send.push_str(&(args().nth(2).unwrap()));
+        json_file.push_str(&(args().nth(3).unwrap()));
 
     }else if arg_count == 3{
         if &(args().nth(1).unwrap()) != "-s"{
@@ -71,7 +71,7 @@ fn main() {
         }
 
         flag = 4;
-        pcap_send.push_str(&(args().nth(4).unwrap()));
+        pcap_send.push_str(&(args().nth(2).unwrap()));
 
     }else{
         exit(1);
@@ -87,39 +87,47 @@ fn main() {
     });
     thread::sleep(Duration::from_secs(10));
 
-    // then send pcap.
-    let send_ts = thread::spawn(move || {
-        if flag == 1 || flag == 2 {
-            let cmd = format!(" -i {} -M {} {}", pcap_send_i, pcap_send_m, pcap_file);
-            let _pcap_ts = match Command::new("tcpreplay")
-                .arg(&cmd)
-                .spawn() {
-                Ok(t) => t,
-                Err(_) => { exit(1); },
-            };
-        }else if flag == 3 || flag == 4{
-            let _pcap_ts = match Command::new(&pcap_send)
-                .spawn() {
-                Ok(t) => t,
-                Err(_) => { exit(1); },
-            };
-        }
-    });
 
-    match send_ts.join(){
-        Ok(_) => {},
-        Err(_) => {exit(1);},
-    };
+    // send pcap files
+    if flag == 1 || flag == 2 {
 
+        let cmd = format!(" -i {} -M {} {}", pcap_send_i, pcap_send_m, pcap_file);
+        let mut send_ts = match Command::new("tcpreplay")
+            .arg(&cmd)
+            .spawn() {
+            Ok(t) => t,
+            Err(_) => { exit(1); },
+        };
 
-    // notice.....
-    // if sleep 10 secs, the json check not exit. we check it error.
-    thread::sleep(Duration::from_secs(10));
+        match send_ts.wait(){
+            Ok(_) => {},
+            Err(_) => {exit(1);},
+        };
 
-    let _ = match receiver_json_channel.try_recv(){
-        Ok(_) => {},
-        Err(_) => {exit(1);},
-    };
+    }else if flag == 3 || flag == 4{
+
+        let mut send_ts = match Command::new(&pcap_send)
+            .spawn() {
+            Ok(t) => t,
+            Err(_) => { exit(1); },
+        };
+
+        match send_ts.wait(){
+            Ok(_) => {},
+            Err(_) => {exit(1);},
+        };
+    }
+
+    if flag == 1 || flag == 3 {
+        // notice.....
+        // if sleep 10 secs, the json check not exit. we check it error.
+        thread::sleep(Duration::from_secs(10));
+
+        let _ = match receiver_json_channel.try_recv() {
+            Ok(_) => {},
+            Err(_) => { exit(1); },
+        };
+    }
 
     exit(0);
 }

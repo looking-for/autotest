@@ -245,7 +245,7 @@ _test_list()
 
 		if [ "$pcap_send" != "" ] ; then
 			if [ -f "$JSON_CHECK" ] ; then
-				echo "$SUDO_PWD" | sudo -S ${JSON_CHECK} -s ${pcap}  ${json} 
+				echo "$SUDO_PWD" | sudo -S ${JSON_CHECK} -s ${pcap_send}  ${json} 
 				if [ "$?" != "0" ] ; then
 					echo "		   ${JSON_CHECK} send shell fail" >> $RESULT
 					return 1
