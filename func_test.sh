@@ -179,7 +179,7 @@ _test_list()
 		## global config
 		global_config=${WORK_PATH}/config.sh
 		if [ -f ${global_config} ] ; then
-			${global_config} ${WORK_PATH} ${INSTALL_PATH} ${RESULT} ${SUDO_PWD}
+			echo "$SUDO_PWD" | sudo -S ${global_config} ${WORK_PATH} ${INSTALL_PATH} ${RESULT}
 			sleep 30
 		fi
 
@@ -190,7 +190,7 @@ _test_list()
 				echo "		   config is [${config}], but config file [${config_file}] is not exist." >>RESULT
 				return 1
 			fi
-			${config_file} ${WORK_PATH} ${INSTALL_PATH} ${RESULT} ${INT} ${func_path}
+			echo "$SUDO_PWD" | sudo -S ${config_file} ${WORK_PATH} ${INSTALL_PATH} ${RESULT} ${INT} ${func_path}
 			if [ "$?" != "0" ] ; then
 				echo "		   $config_file err" >> $RESULT
 				return 1
@@ -205,7 +205,7 @@ _test_list()
 				return 1
 			fi
 			echo -n "		   " >> $RESULT
-			${check_file}  ${WORK_PATH} ${INSTALL_PATH} ${RESULT} ${INT} ${func_path}
+			echo "$SUDO_PWD" | sudo -S ${check_file}  ${WORK_PATH} ${INSTALL_PATH} ${RESULT} ${INT} ${func_path}
 			if [ "$?" != "0" ] ; then
 				echo "		   ${check_file} err" >> $RESULT
 				return 1
@@ -216,7 +216,7 @@ _test_list()
 		## JSON_CHECK
 		if [ "$pcap" != "" ] ; then
 			if [ -f "$JSON_CHECK" ] ; then
-				${JSON_CHECK} -f ${pcap}  ${INT} 100 ${json} 
+				echo "$SUDO_PWD" | sudo -S ${JSON_CHECK} -f ${pcap}  ${INT} 100 ${json} 
 				if [ "$?" != "0" ] ; then
 					echo "		   ${JSON_CHECK} pcap file fail" >> $RESULT
 					return 1
@@ -229,7 +229,7 @@ _test_list()
 
 		if [ "$pcap_send" != "" ] ; then
 			if [ -f "$JSON_CHECK" ] ; then
-				${JSON_CHECK} -s ${pcap}  ${json} 
+				echo "$SUDO_PWD" | sudo -S ${JSON_CHECK} -s ${pcap}  ${json} 
 				if [ "$?" != "0" ] ; then
 					echo "		   ${JSON_CHECK} send shell fail" >> $RESULT
 					return 1
@@ -247,7 +247,7 @@ _test_list()
 				echo "		   post is [${post}], but post file [${post_file}] is not exist." >>RESULT
 				return 1
 			fi
-			${post_file}  ${WORK_PATH} ${INSTALL_PATH} ${RESULT} ${INT} ${func_path}
+			echo "$SUDO_PWD" | sudo -S ${post_file}  ${WORK_PATH} ${INSTALL_PATH} ${RESULT} ${INT} ${func_path}
 			if [ "$?" != "0" ] ; then
 				echo "		   ${post_file} err" >> $RESULT
 				return 1
@@ -258,7 +258,7 @@ _test_list()
 		## global post
 		global_post=${WORK_PATH}/post.sh
 		if [ -f ${global_post} ] ; then
-			${global_post} ${WORK_PATH} ${INSTALL_PATH} ${RESULT} ${SUDO_PWD}
+			echo "$SUDO_PWD" | sudo -S ${global_post} ${WORK_PATH} ${INSTALL_PATH} ${RESULT} ${SUDO_PWD}
 			sleep 10
 		fi
 }
