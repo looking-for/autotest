@@ -169,6 +169,7 @@ _test_list()
 		func_path=$1
 		list_file=$2
 		#name=`cat $list_file | grep name | cut -d '=' -f 2`
+		input=`cat ${list_file} | grep input | cut -d '=' -f 2 | cut -d ' ' -f 1`
 		config=`cat ${list_file} | grep config | cut -d '=' -f 2 | cut -d ' ' -f 1`
 		pcap=`cat ${list_file} | grep pcap | grep -v send | cut -d '=' -f 2 | cut -d ' ' -f 1`
 		pcap_send=`cat ${list_file} | grep pcap_send | cut -d '=' -f 2 | cut -d ' ' -f 1`
@@ -183,6 +184,21 @@ _test_list()
 			sleep 30
 		fi
 
+		## input
+		global_input=${WORK_PATH}/input.sh
+		if [ "$input" != "" ] ; then
+			input_file="${func_path}/input/${input}"
+			if [ ! -f "${input_file}" ] ; then
+				echo "		   input is [${input}], but input file [${input_file}] is not exist." >>RESULT
+				return 1
+			fi
+			echo "$SUDO_PWD" | sudo -S ${global_input} ${WORK_PATH} ${INSTALL_PATH} ${RESULT} ${input_file}
+			if [ "$?" != "0" ] ; then
+				echo "		   $global_input err" >> $RESULT
+				return 1
+			fi
+			sleep 2
+		fi
 		## config
 		if [ "$config" != "" ] ; then
 			config_file="${func_path}/config/${config}"
