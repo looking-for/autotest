@@ -102,7 +102,7 @@ test_lists()
 		array=(${flag//,/ })
 		for var in ${array[@]}
 		do
-			list_file="${func_path}/list/list_${index}"
+			list_file=`ls ${func_path}/list/ | grep list_${index}`
 			echo "		-- test list ${list_file}" >> $RESULT
 			test_list ${func_path} ${list_file}
 			if [ "$?" != "0" ] ; then
@@ -121,7 +121,7 @@ test_lists()
 		end=`echo $flag | cut -d '-' -f 2`
 		for ((i=$start; i<=$end; i ++))
 		do
-			list_file="{func_path}/list/list_${index}"
+			list_file=`ls ${func_path}/list/ | grep list_${index}`
 			echo "		-- test list ${list_file}" >> $RESULT
 			test_list ${func_path} ${list_file}
 			if [ "$?" != "0" ] ; then
@@ -168,7 +168,7 @@ _test_list()
 {
 		func_path=$1
 		list_file=$2
-		name=`cat $list_file | grep "name=" | cut -d '=' -f 2`
+		desc=`cat $list_file | grep "desc=" | cut -d '=' -f 2`
 		input=`cat ${list_file} | grep "input=" | cut -d '=' -f 2 | cut -d ' ' -f 1`
 		config=`cat ${list_file} | grep "config=" | cut -d '=' -f 2 | cut -d ' ' -f 1`
 		pcap=`cat ${list_file} | grep "pcap=" | grep -v send | cut -d '=' -f 2 | cut -d ' ' -f 1`
@@ -178,6 +178,7 @@ _test_list()
 		post_check=`cat ${list_file} | grep "post_check=" | cut -d '=' -f 2 | cut -d ' ' -f 1`
 		post=`cat ${list_file} | grep "post=" | cut -d '=' -f 2 | cut -d ' ' -f 1`
 
+		echo "		   desc ${desc}" >>$RESULT
 		## global config
 		global_config=${WORK_PATH}/config.sh
 		if [ -f ${global_config} ] ; then

@@ -67,4 +67,4 @@ if [ "$?" != "0" ] ; then
 fi
 
 echo ${WORK_PATH}/reinstall.sh ${WORK_PATH} ${INSTALL_PATH} ${RESULT} ${INT} ${SUDO_PWD} ${JSON_CHECK} ${FUNC} 
-${WORK_PATH}/reinstall.sh ${WORK_PATH} ${INSTALL_PATH} ${RESULT} ${INT} ${SUDO_PWD} ${JSON_CHECK} ${FUNC} 
+echo "${SUDO_PWD}" | sudo -S ${WORK_PATH}/reinstall.sh ${WORK_PATH} ${INSTALL_PATH} ${RESULT} ${INT} ${SUDO_PWD} ${JSON_CHECK} ${FUNC} 
