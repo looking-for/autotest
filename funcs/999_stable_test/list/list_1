@@ -1,7 +1,7 @@
-config=
+config=config_1.sh
 pcap=
 pcap_send=../../../../pcap_test_file/send_and_check.sh
 json=  
 check=check_1.sh
 post_check=post_check_1.sh
-post=
+post=post_1.sh
