@@ -62,7 +62,8 @@ check_all_list()
 	bak=0
 	for list_file in $list_files
 	do
-		echo "		-- test list ${func_path}/list/${list_file}" >> $RESULT
+		this_list_file="${func_path}/list/${list_file}"
+		echo "		-- test list ${this_list_file}  " >> $RESULT
 		test_list ${func_path} ${func_path}/list/${list_file}
 		if [ "$?" != "0" ] ; then
 			echo "		   fail" >> $RESULT
@@ -167,7 +168,7 @@ _test_list()
 {
 		func_path=$1
 		list_file=$2
-		#name=`cat $list_file | grep name | cut -d '=' -f 2`
+		name=`cat $list_file | grep "name=" | cut -d '=' -f 2`
 		input=`cat ${list_file} | grep "input=" | cut -d '=' -f 2 | cut -d ' ' -f 1`
 		config=`cat ${list_file} | grep "config=" | cut -d '=' -f 2 | cut -d ' ' -f 1`
 		pcap=`cat ${list_file} | grep "pcap=" | grep -v send | cut -d '=' -f 2 | cut -d ' ' -f 1`
