@@ -15,6 +15,7 @@ if [ ! -f ${RPM_DIR}/nta*.rpm ] ; then
 	exit 1
 fi
 
+echo "#################### reinstall nta..." >>$RESULT
 echo "$SUDO_PWD" | sudo -S ${INSTALL_PATH}/nta/bin/nta_start.sh stop >/dev/null 2>/dev/null
 echo "$SUDO_PWD" | sudo -S ${INSTALL_PATH}/nta/bin/pcap_save.sh stop >/dev/null 2>/dev/null
 echo "$SUDO_PWD" | sudo -S rpm -e nta >/dev/null 2>/dev/null
@@ -28,8 +29,6 @@ INT=$4
 SUDO_PWD=$5
 JSON_CHECK=$6
 
-echo ##################################################################
 echo ${WORK_PATH}/func_test.sh ${WORK_PATH} ${INSTALL_PATH} ${RESULT} ${INT} ${SUDO_PWD} ${JSON_CHECK} ${FUNC}
-echo ##################################################################
 ${WORK_PATH}/func_test.sh ${WORK_PATH} ${INSTALL_PATH} ${RESULT} ${INT} ${SUDO_PWD} ${JSON_CHECK} ${FUNC}
 

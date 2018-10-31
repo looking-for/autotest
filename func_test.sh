@@ -10,7 +10,7 @@ FUNC=$7
 
 start(){
 echo "" >> $RESULT
-echo "########## funcs test ##########" >> $RESULT
+echo "#################### funcs test" >> $RESULT
 
 
 funcs=`ls ${WORK_PATH}/funcs/`
