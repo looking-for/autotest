@@ -18,29 +18,6 @@ IS_YES=y
 ASK_WHILE=1
 SLEEP_TIME=2
 
-setup_supervisor()
-{
-    SUPERVISORDIR=${APP_DIR}/package/supervisor
-    supervisorctl version > /dev/null 2>&1
-    SVCEXSIST=$?
-    if [ ${SVCEXSIST} -eq 0 ]; then
-        CURSV=`supervisorctl version`
-        echo supervisor version:${CURSV} has been installed
-        if [ ${CURSV} != "3.1.4" ]; then
-            echo "warning: supervisor's version is not expected. we need 3.1.4 "
-            exit
-        fi
-    else
-        rpm -Uvh ${SUPERVISORDIR}/python-meld3-0.6.10-1.el7.x86_64.rpm
-        rpm -Uvh ${SUPERVISORDIR}/python-setuptools-0.9.8-7.el7.noarch.rpm
-        rpm -Uvh ${SUPERVISORDIR}/supervisor-3.1.4-1.el7.noarch.rpm
-        cp ${SUPERVISORDIR}/supervisor.service /lib/systemd/system/
-        systemctl enable supervisor.service
-        systemctl daemon-reload
-        service supervisor start
-        cp ${SUPERVISORDIR}/*.ini /etc/supervisord.d/ -f
-    fi
-}
 chg_rust_logdir()
 {
       ORACLELOGFILE=${APP_DIR}/etc/oracle_parser/log4rs.yml
@@ -102,7 +79,6 @@ function traffic_monitor {
 }
 
 mkdir -p /var/log/nta
-setup_supervisor
 # traffic_monitor
 # read -p "Input Mirrored NIC name :" wNIC
 
@@ -269,7 +245,7 @@ fi
 echo ""
 
 # ---------------------------config pcap_save_file------------------------------
-echo "dir_name=${TMP_DIR}/pcap_save_file/pcap" >> ${PCAP_CONFIG_FILE}/pcap_save.ini
+echo "dir_name=${TMP_DIR}/pcapsavefile/pcap" >> ${PCAP_CONFIG_FILE}/pcap_save.ini
 echo "[default]" >> ${PCAP_CONFIG_FILE}/pcap_save.ini
 echo "pcap_file_prefix_name=log" >> ${PCAP_CONFIG_FILE}/pcap_save.ini
 echo "snap_shot_len=65535" >> ${PCAP_CONFIG_FILE}/pcap_save.ini
@@ -284,51 +260,7 @@ echo "cpu_affinity_storage=-1" >> ${PCAP_CONFIG_FILE}/pcap_save.ini
 echo "cpu_affinity_delete=-1" >> ${PCAP_CONFIG_FILE}/pcap_save.ini
 echo "cpu_affinity_manage=-1" >> ${PCAP_CONFIG_FILE}/pcap_save.ini
 echo "log_file_name=${PCAP_CONFIG_FILE}/log4rs.yml" >> ${PCAP_CONFIG_FILE}/pcap_save.ini
-echo "log_file_dir=${TMP_DIR}/pcap_save_file/log" >> ${PCAP_CONFIG_FILE}/pcap_save.ini
 
-log_line=`grep -n pcap_save_init.log  ${PCAP_CONFIG_FILE}/log4rs.yml | cut -d ':' -f 1`
-if [ "$log_line" != "" ] ; then
-	newstr="path: \"${TMP_DIR}/pcap_save_file/log/pcap_save_init.log\""
-	sed -i "$log_line d" ${PCAP_CONFIG_FILE}/log4rs.yml
-	sed -i "$log_line i$newstr" ${PCAP_CONFIG_FILE}/log4rs.yml	
-	tmpcmd="sed -i '${log_line}s/^/ /' ${PCAP_CONFIG_FILE}/log4rs.yml"
-	eval $tmpcmd
-	eval $tmpcmd
-	eval $tmpcmd
-	eval $tmpcmd
-else
-	echo "***warning*** cannot reset pcap_save_file log4rs.yml log file dir"
-fi
-
-log_line=`grep -n pcap_save_rolling.log ${PCAP_CONFIG_FILE}/log4rs.yml | grep -v "{}" | cut -d ':' -f 1`
-if [ "$log_line" != "" ] ; then
-	newstr="path: \"${TMP_DIR}/pcap_save_file/log/pcap_save_rolling.log\""
-	sed -i "$log_line d" ${PCAP_CONFIG_FILE}/log4rs.yml
-	sed -i "$log_line i$newstr" ${PCAP_CONFIG_FILE}/log4rs.yml
-	tmpcmd="sed -i '${log_line}s/^/ /' ${PCAP_CONFIG_FILE}/log4rs.yml"
-	eval $tmpcmd
-	eval $tmpcmd
-	eval $tmpcmd
-	eval $tmpcmd
-else
-	echo "***warning*** cannot reset pcap_save_file log4rs.yml log file dir"
-fi
-
-log_line=`grep -n pcap_save_rolling.log.{} ${PCAP_CONFIG_FILE}/log4rs.yml | cut -d ':' -f 1`
-if [ "$log_line" != "" ] ; then
-	newstr="pattern: '${TMP_DIR}/pcap_save_file/log/pcap_save_rolling.log.{}'"
-	sed -i "$log_line d" ${PCAP_CONFIG_FILE}/log4rs.yml
-	sed -i "$log_line i$newstr" ${PCAP_CONFIG_FILE}/log4rs.yml
-	tmpcmd="sed -i '${log_line}s/^/ /' ${PCAP_CONFIG_FILE}/log4rs.yml"
-	eval $tmpcmd
-	eval $tmpcmd
-	eval $tmpcmd
-	eval $tmpcmd
-	eval $tmpcmd
-	eval $tmpcmd
-	eval $tmpcmd
-	eval $tmpcmd
-fi
 
 # -------------------------- config run web ----------------------------------
 cd ${APP_WEB_DIR}
