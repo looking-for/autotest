@@ -41,8 +41,10 @@ RESULT="${RESULT_DIR}/${date}_${GIT_COMMIT_VERSION}"
 touch $RESULT
 
 echo "" >> $RESULT
+sd1=`date +%F`
+sd2=`date +%T`
 echo "########################################" >> $RESULT
-echo "nta auto test" >> $RESULT
+echo "nta auto test started at ${sd1} ${sd2}" >> $RESULT
 echo "	git remote: ${GIT_REMOTE}" >> $RESULT
 echo "	git branch: ${GIT_BRANCH}" >> $RESULT
 echo "	git commit version: ${GIT_COMMIT_VERSION}" >> $RESULT

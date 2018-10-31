@@ -310,3 +310,8 @@ _test_list()
 
 
 start
+echo "" >>$RESULT
+echo "#################### " >>$RESULT
+sd1=`date +%F`
+sd2=`date +%T`
+echo "nta auto test end at ${sd1} ${sd2}" >> $RESULT
