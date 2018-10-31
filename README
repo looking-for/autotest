@@ -5,3 +5,42 @@
 # Enterpriser IP is :  127.0.0.1
 # NTA store dirctory is :  /tmp/nta
 
+# in funcs 
+  pcap
+  json
+  pcap_send
+  config
+  config_files
+  check
+  post_check
+  input
+  post
+  
+# funcs/*/list/
+  index
+  *_list_1 *_list_2...      * cannot contain list
+  list_1 list_2
+
+# funcs/*/list/list_1
+  input=your_input_file_in_input_dir
+  desc=description your list function
+  pcap=your_pcap_file_in_pcap_dir.pcap
+  pcap_send=yourself_send_pcap_shell_file_in_pcap_send_dir.sh
+  json=
+  config=your_config_shell_file_in_config_dir.sh
+  check=your_check_shell_file_in_check_dir.sh
+  post_check=your_post_check_file_in_post_check_dir.sh
+  post=your_local_post_hand_in_post_dir.sh
+
+# list run index
+  global_config -> auto global nta configure and restart nta
+  input -> your local auto nta configure
+  config -> copy some config files or restart some funcs. if you have input, you must do config for restart funcs.
+  check -> funcs check
+  JSON_CHECK -> send pcap files, check json result.
+  post_check -> funcs check again
+  post -> your local post hand
+  global_post -> stop nta and global post hand
+
+  
+
