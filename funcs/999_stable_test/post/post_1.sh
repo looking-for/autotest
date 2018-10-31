@@ -9,3 +9,4 @@ FUNC_PATH=$5
 ${INSTALL_PATH}/nta/bin/pcap_save.sh stop >/dev/null 2>/dev/null
 sleep 3
 rm -fr /tmp/nta/pcapsavefile >/dev/null 2>/dev/null
+rm -fr ${FUNC_PATH}/tmp/* >/dev/null 2>/dev/null

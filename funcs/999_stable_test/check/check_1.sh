@@ -13,7 +13,7 @@ if [ "$pid" == "" ] ; then
 	echo "got pid fail" >> $RESULT
 	exit 1
 else
-	echo "${pid}" > ${FUNC_PATH}/tmp/tmp1.info
+	echo "${pid}" > ${FUNC_PATH}/tmp/tmp_nta.info
 fi
 
 flag="pidstat -t -p `pgrep nta` | grep Hansight-nta-Ma"
@@ -119,39 +119,61 @@ if [ "$pid" == "" ] ; then
 	echo "got pcap_save_file pid fail" >> $RESULT
 	exit 1
 else
-	echo "${pid}" > ${FUNC_PATH}/tmp/tmp2.info
+	echo "${pid}" > ${FUNC_PATH}/tmp/tmp_pcap.info
 fi
-g="pidstat -t -p `pgrep pcap_save_file` | grep pcap_capture"
+flag="pidstat -t -p `pgrep pcap_save_file` | grep '|' | sed 's/[ ][ ]*/,/g' |grep pcap_save_file|cut -d ',' -f 4"
 flag=`eval $flag`
 if [ "$flag" == "" ] ; then
-		echo "got thread pcap_capture fail" >> $RESULT
-		exit 1
-fi
-flag="pidstat -t -p `pgrep pcap_save_file` | grep pcap_storage"
-flag=`eval $flag`
-if [ "$flag" == "" ] ; then
-	echo "got thread pcap_storage fail" >> $RESULT
+	echo "got pcap_save_file thread pcap_delete fail" >> $RESULT
 	exit 1
+else
+	echo "${flag}" > ${FUNC_PATH}/tmp/tmp_pcap_pcap_save_file.info
+fi
+flag="pidstat -t -p `pgrep pcap_save_file` | grep '|' | sed 's/[ ][ ]*/,/g' |grep log4rs |cut -d ',' -f 4"
+flag=`eval $flag`
+if [ "$flag" == "" ] ; then
+	echo "got pcap_save_file thread log4rs fail" >> $RESULT
+	exit 1
+else
+	echo "${flag}" > ${FUNC_PATH}/tmp/tmp_pcap_log4rs.info
 fi
 
-flag="pidstat -t -p `pgrep pcap_save_file` | grep pcap_delete"
+flag="pidstat -t -p `pgrep pcap_save_file` | grep '|' | sed 's/[ ][ ]*/,/g' |grep pcap_storage |cut -d ',' -f 4"
 flag=`eval $flag`
 if [ "$flag" == "" ] ; then
-	echo "got thread pcap_delete fail" >> $RESULT
+	echo "got pcap_save_file thread pcap_storage fail" >> $RESULT
 	exit 1
+else
+	echo "${flag}" > ${FUNC_PATH}/tmp/tmp_pcap_storage.info
+fi
+flag="pidstat -t -p `pgrep pcap_save_file` | grep '|' | sed 's/[ ][ ]*/,/g' |grep pcap_capture |cut -d ',' -f 4"
+flag=`eval $flag`
+if [ "$flag" == "" ] ; then
+	echo "got pcap_save_file thread pcap_capture fail" >> $RESULT
+	exit 1
+else
+	echo "${flag}" > ${FUNC_PATH}/tmp/tmp_pcap_capture.info
+fi
+flag="pidstat -t -p `pgrep pcap_save_file` | grep '|' | sed 's/[ ][ ]*/,/g' |grep pcap_delete |cut -d ',' -f 4"
+flag=`eval $flag`
+if [ "$flag" == "" ] ; then
+	echo "got pcap_save_file thread pcap_delete fail" >> $RESULT
+	exit 1
+else
+	echo "${flag}" > ${FUNC_PATH}/tmp/tmp_pcap_delete.info
 fi
 
-flag="pidstat -t -p `pgrep pcap_save_file` | grep pcap_save_file"
-flag=`eval $flag`
-if [ "$flag" == "" ] ; then
-	echo "got thread pcap_delete fail" >> $RESULT
+# ##########################################
+# check pop3
+# ##########################################
+pid=`pgrep pop3_parser`
+if [ "$pid" == "" ] ; then
+	echo "got pop3_parser pid fail" >> $RESULT
 	exit 1
+else
+	echo "${pid}" > ${FUNC_PATH}/tmp/tmp_pop3_parser.info
 fi
-flag="pidstat -t -p `pgrep pcap_save_file` | grep log4rs"
-flag=`eval $flag`
-if [ "$flag" == "" ] ; then
-	echo "got thread log4rs fail" >> $RESULT
-	exit 1
-fi
+
+
 exit 0
 
