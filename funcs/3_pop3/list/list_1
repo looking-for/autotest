@@ -3,5 +3,5 @@ pcap=
 pcap_send=
 json=  
 check=check_1.sh
-post_check=
-post=
+post_check=post_check_1.sh
+post=post_1.sh
